@@ -1,40 +1,47 @@
-/**
-  ******************************************************************************
-  * EECE 437 Spring 2014
-  * Lab #1 Template File
-  *
-  ******************************************************************************
-  */
-
-/* Includes ------------------------------------------------------------------*/
+/******************************************************************************
+ * @course      EECE 437 Spring 2014
+ * @proj        Lab #1 Template File
+ * @file        EECE 437 S14 Lab #1 Template.c
+ * 
+ * @authors     Jon Hourany, James Anderson
+ * @date        2/13/2014
+ * @breif       Graphically draw gyroscope readings
+ ******************************************************************************/
+/*******************************************************************************
+ * Includes                                                                    
+ ******************************************************************************/
 #include "main.h"
-
 #include "stm32f429i_discovery_l3gd20.h"
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-
-
+/*******************************************************************************
+ * Private define                                                              
+ ******************************************************************************/
+/* Button 1 (Usually Red) pixel boundries       */
 #define         B1_XMIN         2
 #define         B1_XMAX         64
 #define         B1_YMIN         228
 #define         B1_YMAX         290
 
+/* Button 2 (Usually Blue) pixel boundries      */
 #define         B2_XMIN         89
 #define         B2_XMAX         153
 #define         B2_YMIN         228
 #define         B2_YMAX         290
 
+/* Button 3 (Usually Green) pixel boundries     */
 #define         B3_XMIN         176
 #define         B3_XMAX         238
 #define         B3_YMIN         228
 #define         B3_YMAX         290
 
+/* Accelerometor Draw Boundries. A1 = Xval, A2 = Yval */
 #define         A1_YMIN         54
 #define         A1_YMAX         130
+#define         A1_ZONE         A1_YMIN-1, A1_YMAX+2
 
 #define         A2_YMIN         140
 #define         A2_YMAX         210
+#define         A2_ZONE         A2_YMIN-1, A2_YMAX+2
 
 extern uint32_t CurrentFrameBuffer;
 
@@ -54,9 +61,18 @@ static __IO uint32_t TimingDelay;
 RCC_ClocksTypeDef RCC_Clocks;
 
 /* Private variables ---------------------------------------------------------*/
+int a1_ground      = 0;         // Zero point for X read out
+int a1_y_signal    = 0;
+int a1_y_position  = 0;
 
-int x_index = 2, y_index = 0;
+int a2_ground      = 0;
+int a2_y_signal    = 0;
+int a2_y_position  = 0;
 
+int amplification  = 1;
+int sample_rate    = 1;
+int time           = 0;
+char gyro_val_buffer[15];       // For i to a conversion of X/YVals
 
 /* Private function prototypes -----------------------------------------------*/
 static void TP_Config(void);
@@ -87,7 +103,6 @@ int main(void)
   system_stm32f4xx.c file
   */      
 
-  
     /* SysTick end of count event each 10ms */
   RCC_GetClocksFreq(&RCC_Clocks);
   SysTick_Config(RCC_Clocks.HCLK_Frequency / 100);
@@ -113,117 +128,114 @@ int main(void)
   /* Touch Panel configuration */
   TP_Config();
   
-  
+  a1_ground = A1_YMIN + ((A1_YMAX - A1_YMIN)/2);
+  a2_ground = A2_YMIN + ((A2_YMAX - A2_YMIN)/2);
 // Your code changes go here...........................................
-    
-  
-  y_index = A2_YMIN + ((A2_YMAX - A2_YMIN)/2);
   while (1)
   {
- 
       TP_State = IOE_TP_GetState();
       
       if((TP_State->TouchDetected) && ((TP_State->Y < B1_YMAX) && (TP_State->Y >= B1_YMIN))) {
-          if((TP_State->X >= B1_XMIN) && (TP_State->X < B1_XMAX)) {   
-            
-// Demo code - draws Text  in first display area - delete for your solution
+        /* Red Button */  
+        if((TP_State->X >= B1_XMIN) && (TP_State->X < B1_XMAX)) {   
                  LCD_SetFont(&Font16x24);
                  LCD_SetTextColor(LCD_COLOR_RED); 
-                 LCD_DisplayStringLine(LINE(3), (uint8_t*)Xval);
-// End Demo code to be deleted
-                 
-          } else if ((TP_State->TouchDetected) && (TP_State->X >= B2_XMIN) && (TP_State->X < B2_XMAX)) {
-            
-// Demo code - draws Text  in first display area - delete for your solution
+                 time = 2;          
+                 LCD_ClearSection(A1_ZONE);
+                 LCD_ClearSection(A2_ZONE);
+
+          /* Blue Button */       
+          } else if ((TP_State->TouchDetected) && (TP_State->X >= B2_XMIN) && (TP_State->X < B2_XMAX)) {            
                  LCD_SetFont(&Font16x24);
                  LCD_SetTextColor(LCD_COLOR_BLUE); 
-                 LCD_DisplayStringLine(LINE(3), (uint8_t*)" TWO   ");
-// End Demo code to be deleted
-                 
+                 amplification = (amplification == 1 ? 2 : 1);
+
+          /* Green Button */       
           } else if ((TP_State->TouchDetected) && (TP_State->X >= B3_XMIN) && (TP_State->X < B3_XMAX)) {
-            
-// Demo code - draws Text  in first display area - delete for your solution
                  LCD_SetFont(&Font16x24);
                  LCD_SetTextColor(LCD_COLOR_GREEN); 
-                 LCD_DisplayStringLine(LINE(3), (uint8_t*)" THREE ");
-// End Demo code to be deleted
-                 
+                 sample_rate = (sample_rate == 1 ? .5 : 1);
           }
-
       }
-      
 
-      x_index++;     
-      if (x_index >= 238) {
-          x_index = 2;          
-          LCD_ClearSection(138, 212);
+      time++;     
+      if (time >= 238) {
+          time = 2;          
+          LCD_ClearSection(A1_ZONE);
+          LCD_ClearSection(A2_ZONE);
       }
-           
-      
-      LCD_SetTextColor(LCD_COLOR_BLACK);
-      
-      LCD_DrawFullCircle(x_index, y_index, 1);
 
-      
       /* Read Gyro Angular data */
       Demo_GyroReadAngRate(Buffer);
 
       Buffer[0] = (int8_t)Buffer[0] - (int8_t)Gyro[0];
       Buffer[1] = (int8_t)Buffer[1] - (int8_t)Gyro[1];
       
-      /* Update autoreload and capture compare registers value*/
-      Xval = ABS((int8_t)(Buffer[0]));
-      Yval = ABS((int8_t)(Buffer[1])); 
+      /* X value position */
+      a1_y_signal   = -37*(Buffer[0]/(float)(120));
+      a1_y_position = 2*a1_y_signal + a1_ground;
       
+      /* Y value position */
+      a2_y_signal   = -37*(Buffer[1]/(float)(120));
+      a2_y_position = 2*a2_y_signal + a2_ground;
       
+      if (a1_y_position < A1_YMIN) { a1_y_position = A1_YMIN; }
+      if (a1_y_position > A1_YMAX) { a1_y_position = A1_YMAX; }
+      if (a2_y_position < A2_YMIN) { a2_y_position = A2_YMIN; }
+      if (a2_y_position > A2_YMAX) { a2_y_position = A2_YMAX; }
+      LCD_SetTextColor(LCD_COLOR_BLACK);
+      LCD_DrawFullCircle(time, a1_y_position, 1);
+      LCD_DrawFullCircle(time, a2_y_position, 1);
+      
+      //sprintf(gyro_val_buffer, "XVAL:%d YVAL:%d", Buffer[0], Buffer[1]);
+
+      //LCD_ClearSection(A1_YMIN, A1_YMAX);
+      //LCD_SetTextColor(LCD_COLOR_BLACK);
+      //LCD_DisplayStringLine(LINE(3), (uint8_t*)gyro_val_buffer);
       
 // Demo code - draws colored circles in first display area - delete for your solution
       
-      if ( Xval>Yval)
-      {
-        if ((int16_t)Buffer[0] > 40)
-        {
-          /* Clear the LCD */
-          LCD_ClearSection(A1_YMIN, A1_YMAX);
-          LCD_SetTextColor(LCD_COLOR_MAGENTA);
-          //LCD_DrawFullCircle(120, (A1_YMIN + 6), 5);
-          LCD_DisplayStringLine(LINE(3), (uint8_t*)Xval);
+//      if ( Xval>Yval)
+//      {
+//        if ((int16_t)Buffer[0] > 40)
+//        {
+//          /* Clear the LCD */
+//          LCD_ClearSection(A1_YMIN, A1_YMAX);
+//          LCD_SetTextColor(LCD_COLOR_BLACK);
+//          //LCD_DrawFullCircle(120, (A1_YMIN + 6), 5);
+//          LCD_DisplayStringLine(LINE(3), (uint8_t*)gyro_val_buffer);
+//
+//        }
+//        else if ((int16_t)Buffer[0] < -40)
+//        {
+//          /* Clear the LCD */
+//          LCD_ClearSection(A1_YMIN, A1_YMAX);
+//          LCD_SetTextColor(LCD_COLOR_BLACK);
+//          //LCD_DrawFullCircle(120, (A1_YMAX - 6), 5);
+//          LCD_DisplayStringLine(LINE(3), (uint8_t*)gyro_val_buffer);
+//
+//        }
+//      }
+//      else
+//      {
+//        if ((int16_t)Buffer[1] < -40)
+//        {
+//          /* Clear the LCD */
+//          LCD_ClearSection(A1_YMIN, A1_YMAX);
+//          LCD_SetTextColor(LCD_COLOR_BLACK);
+//          //LCD_DrawFullCircle(10, (A1_YMIN + 38), 5);
+//          LCD_DisplayStringLine(LINE(3), (uint8_t*)gyro_val_buffer);
+//
+//        }
+//        else if ((int16_t)Buffer[1] > 40)
+//        {      
 
-        }
-        else if ((int16_t)Buffer[0] < -40)
-        {
-          /* Clear the LCD */
-          LCD_ClearSection(A1_YMIN, A1_YMAX);
-          LCD_SetTextColor(LCD_COLOR_RED);
-          //LCD_DrawFullCircle(120, (A1_YMAX - 6), 5);
-          LCD_DisplayStringLine(LINE(3), (uint8_t*)Xval);
 
-        }
-      }
-      else
-      {
-        if ((int16_t)Buffer[1] < -40)
-        {
-          /* Clear the LCD */
-          LCD_ClearSection(A1_YMIN, A1_YMAX);
-          LCD_SetTextColor(LCD_COLOR_GREEN);
-          //LCD_DrawFullCircle(10, (A1_YMIN + 38), 5);
-          LCD_DisplayStringLine(LINE(3), (uint8_t*)Xval);
-
-        }
-        else if ((int16_t)Buffer[1] > 40)
-        {      
-          /* Clear the LCD */ 
-          LCD_ClearSection(A1_YMIN, A1_YMAX);
-          LCD_SetTextColor(LCD_COLOR_BLUE);
-          //LCD_DrawFullCircle(220, (A1_YMIN + 38), 5);
-          LCD_DisplayStringLine(LINE(3), (uint8_t*)Xval);
-
-        } 
-      } 
+//        } 
+//      } 
 // End Demo code to be deleted
       
-         Delay(5);
+         Delay(sample_rate);
     }
 }
 
@@ -248,7 +260,6 @@ void LCD_ClearSection(uint16_t YStart, uint16_t YEnd)
       LCD_DrawLine(x, YStart, (YEnd - YStart), LCD_DIR_VERTICAL);
     
 }
-
 
 /**
 * @brief  Configure the IO Expander and the Touch Panel.
@@ -427,7 +438,6 @@ uint32_t L3GD20_TIMEOUT_UserCallback(void)
   return 0;
 }
 
-
 /**
   * @brief  Inserts a delay time.
   * @param  nTime: specifies the delay time length, in 10 ms.
@@ -452,8 +462,6 @@ void TimingDelay_Decrement(void)
     TimingDelay--;
   }
 }
-
-
 
 #ifdef  USE_FULL_ASSERT
 

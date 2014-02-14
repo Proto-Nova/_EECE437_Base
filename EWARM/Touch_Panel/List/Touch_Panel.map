@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.70.2.6274/W32 for ARM               13/Feb/2014  11:36:22 #
+# IAR ELF Linker V6.70.2.6274/W32 for ARM               14/Feb/2014  14:03:13 #
 # Copyright 2007-2013 IAR Systems AB.                                         #
 #                                                                             #
 #    Output file  =  C:\Users\ProtoNova\programming\eece437\STM32F429I-Discov #
@@ -123,20 +123,26 @@ __SystemLibrary = DLib
   .text              ro code  0x08002590   0x11c  stm32f4xx_fmc.o [1]
   .text              ro code  0x080026ac   0x5d0  stm32f429i_discovery_ioe.o [1]
   .text              ro code  0x08002c7c   0x1de  stm32f4xx_i2c.o [1]
-  .text              ro code  0x08002e5c   0x53c  EECE 437 S14 Lab #1 Template.o [1]
-  .text              ro code  0x08003398   0x2a8  stm32f429i_discovery_l3gd20.o [1]
-  .text              ro code  0x08003640   0x10c  system_stm32f4xx.o [1]
-  .text              ro code  0x0800374c    0x28  data_init.o [5]
-  .iar.init_table    const    0x08003774    0x24  - Linker created -
-  .text              ro code  0x08003798    0x1a  fpinit_M.o [4]
-  .text              ro code  0x080037b4    0x1a  cmain.o [5]
-  .text              ro code  0x080037ce     0x4  low_level_init.o [3]
-  .text              ro code  0x080037d2     0x4  exit.o [3]
-  .text              ro code  0x080037d8     0xa  cexit.o [5]
-  .text              ro code  0x080037e4    0x14  exit.o [6]
-  .text              ro code  0x080037f8    0x14  stm32f4xx_it.o [1]
-  .text              ro code  0x0800380c    0x10  startup_stm32f429_439xx.o [1]
-  .text              ro code  0x0800381c     0xc  cstartup_M.o [5]
+  .text              ro code  0x08002e5c   0x524  EECE 437 S14 Lab #1 Template.o [1]
+  .text              ro code  0x08003380   0x2a8  stm32f429i_discovery_l3gd20.o [1]
+  .text              ro code  0x08003628   0x10c  system_stm32f4xx.o [1]
+  .text              ro code  0x08003734    0x28  data_init.o [5]
+  .iar.init_table    const    0x0800375c    0x24  - Linker created -
+  .text              ro code  0x08003780    0x1a  fpinit_M.o [4]
+  .text              ro code  0x0800379c    0x1a  cmain.o [5]
+  .text              ro code  0x080037b6     0x4  low_level_init.o [3]
+  .text              ro code  0x080037ba     0x4  exit.o [3]
+  .text              ro code  0x080037c0     0xa  cexit.o [5]
+  .text              ro code  0x080037cc    0x14  exit.o [6]
+  .text              ro code  0x080037e0    0x14  stm32f4xx_it.o [1]
+  .text              ro code  0x080037f4    0x10  startup_stm32f429_439xx.o [1]
+  .text              ro code  0x08003804     0xc  cstartup_M.o [5]
+  .text              ro code  0x08003810     0x4  startup_stm32f429_439xx.o [1]
+  .text              ro code  0x08003814     0x4  startup_stm32f429_439xx.o [1]
+  .text              ro code  0x08003818     0x4  startup_stm32f429_439xx.o [1]
+  .text              ro code  0x0800381c     0x4  startup_stm32f429_439xx.o [1]
+  .text              ro code  0x08003820     0x4  startup_stm32f429_439xx.o [1]
+  .text              ro code  0x08003824     0x4  startup_stm32f429_439xx.o [1]
   .text              ro code  0x08003828     0x4  startup_stm32f429_439xx.o [1]
   .text              ro code  0x0800382c     0x4  startup_stm32f429_439xx.o [1]
   .text              ro code  0x08003830     0x4  startup_stm32f429_439xx.o [1]
@@ -222,35 +228,29 @@ __SystemLibrary = DLib
   .text              ro code  0x08003970     0x4  startup_stm32f429_439xx.o [1]
   .text              ro code  0x08003974     0x4  startup_stm32f429_439xx.o [1]
   .text              ro code  0x08003978     0x4  startup_stm32f429_439xx.o [1]
-  .text              ro code  0x0800397c     0x4  startup_stm32f429_439xx.o [1]
-  .text              ro code  0x08003980     0x4  startup_stm32f429_439xx.o [1]
-  .text              ro code  0x08003984     0x4  startup_stm32f429_439xx.o [1]
-  .text              ro code  0x08003988     0x4  startup_stm32f429_439xx.o [1]
-  .text              ro code  0x0800398c     0x4  startup_stm32f429_439xx.o [1]
-  .text              ro code  0x08003990     0x4  startup_stm32f429_439xx.o [1]
-  .rodata            const    0x08003994     0x0  zero_init3.o [5]
-  .rodata            const    0x08003994     0x0  copy_init3.o [5]
-  Initializer bytes  ro data  0x08003994    0x7c  <for P2 s0>
+  .rodata            const    0x0800397c     0x0  zero_init3.o [5]
+  .rodata            const    0x0800397c     0x0  copy_init3.o [5]
+  Initializer bytes  ro data  0x0800397c    0x94  <for P2 s0>
                             - 0x08003a10  0x3864
 
-"P2", part 1 of 3:                          0x7c
-  P2 s0                       0x20000000    0x7c  <Init block>
-    .data            inited   0x20000000    0x4c  EECE 437 S14 Lab #1 Template.o [1]
-    .data            inited   0x2000004c    0x18  stm32f429i_discovery_lcd.o [1]
-    .data            inited   0x20000064    0x10  stm32f4xx_rcc.o [1]
-    .data            inited   0x20000074     0x4  stm32f429i_discovery_ioe.o [1]
-    .data            inited   0x20000078     0x4  stm32f429i_discovery_l3gd20.o [1]
-                            - 0x2000007c    0x7c
+"P2", part 1 of 3:                          0x94
+  P2 s0                       0x20000000    0x94  <Init block>
+    .data            inited   0x20000000    0x64  EECE 437 S14 Lab #1 Template.o [1]
+    .data            inited   0x20000064    0x18  stm32f429i_discovery_lcd.o [1]
+    .data            inited   0x2000007c    0x10  stm32f4xx_rcc.o [1]
+    .data            inited   0x2000008c     0x4  stm32f429i_discovery_ioe.o [1]
+    .data            inited   0x20000090     0x4  stm32f429i_discovery_l3gd20.o [1]
+                            - 0x20000094    0x94
 
 "P2", part 2 of 3:                          0x14
-  .bss               zero     0x2000007c    0x10  stm32f429i_discovery_ioe.o [1]
-  .bss               zero     0x2000008c     0x4  EECE 437 S14 Lab #1 Template.o [1]
-                            - 0x20000090    0x14
+  .bss               zero     0x20000094    0x10  stm32f429i_discovery_ioe.o [1]
+  .bss               zero     0x200000a4     0x4  EECE 437 S14 Lab #1 Template.o [1]
+                            - 0x200000a8    0x14
 
 "P2", part 3 of 3:                         0x400
-  CSTACK                      0x20000090   0x400  <Block>
-    CSTACK           uninit   0x20000090   0x400  <Block tail>
-                            - 0x20000490   0x400
+  CSTACK                      0x200000a8   0x400  <Block>
+    CSTACK           uninit   0x200000a8   0x400  <Block tail>
+                            - 0x200004a8   0x400
 
 
 *******************************************************************************
@@ -261,13 +261,13 @@ __SystemLibrary = DLib
           -------     ----
 Zero (__iar_zero_init3)
     1 destination range, total size 0x14:
-          0x2000007c  0x14
+          0x20000094  0x14
 
 Copy (__iar_copy_init3)
-    1 source range, total size 0x7c:
-          0x08003994  0x7c
-    1 destination range, total size 0x7c:
-          0x20000000  0x7c
+    1 source range, total size 0x94:
+          0x0800397c  0x94
+    1 destination range, total size 0x94:
+          0x20000000  0x94
 
 
 
@@ -278,7 +278,7 @@ Copy (__iar_copy_init3)
     Module                          ro code  ro data  rw data
     ------                          -------  -------  -------
 C:\Users\ProtoNova\programming\eece437\STM32F429I-Discovery_FW_V1.0.1\Projects\Peripheral_Examples\_EECE437_Base\EWARM\Touch_Panel\Obj: [1]
-    EECE 437 S14 Lab #1 Template.o    1 340       76       80
+    EECE 437 S14 Lab #1 Template.o    1 316      100      104
     startup_stm32f429_439xx.o           808
     stm32f429i_discovery_ioe.o        1 488        4       20
     stm32f429i_discovery_l3gd20.o       680        4        4
@@ -294,7 +294,7 @@ C:\Users\ProtoNova\programming\eece437\STM32F429I-Discovery_FW_V1.0.1\Projects\P
     stm32f4xx_spi.o                     282
     system_stm32f4xx.o                  268
     ---------------------------------------------------------
-    Total:                            9 912    4 684      144
+    Total:                            9 888    4 708      168
 
 command line: [2]
     ---------------------------------------------------------
@@ -329,7 +329,7 @@ shb_l.a: [6]
     Gaps                                 10
     Linker created                                36    1 024
 -------------------------------------------------------------
-    Grand Total:                     10 144    4 720    1 168
+    Grand Total:                     10 120    4 744    1 192
 
 
 *******************************************************************************
@@ -338,36 +338,36 @@ shb_l.a: [6]
 
 Entry                      Address    Size  Type      Object
 -----                      -------    ----  ----      ------
-?main                   0x080037b5          Code  Gb  cmain.o [5]
-APBAHBPrescTable        0x20000064    0x10  Data  Lc  stm32f4xx_rcc.o [1]
+?main                   0x0800379d          Code  Gb  cmain.o [5]
+APBAHBPrescTable        0x2000007c    0x10  Data  Lc  stm32f4xx_rcc.o [1]
 ASCII16x24_Table        0x080001ac  0x11d0  Data  Gb  stm32f429i_discovery_lcd.o [1]
-Buffer                  0x20000010    0x18  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
-BusFault_Handler        0x080037ff     0x2  Code  Gb  stm32f4xx_it.o [1]
-CSTACK$$Base            0x20000090           --   Gb  - Linker created -
-CSTACK$$Limit           0x20000490           --   Gb  - Linker created -
-CurrentBackColor        0x2000004e     0x2  Data  Lc  stm32f429i_discovery_lcd.o [1]
-CurrentFrameBuffer      0x20000054     0x4  Data  Lc  stm32f429i_discovery_lcd.o [1]
-CurrentLayer            0x20000058     0x4  Data  Lc  stm32f429i_discovery_lcd.o [1]
-CurrentTextColor        0x2000004c     0x2  Data  Lc  stm32f429i_discovery_lcd.o [1]
+Buffer                  0x2000000c    0x18  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+BusFault_Handler        0x080037e7     0x2  Code  Gb  stm32f4xx_it.o [1]
+CSTACK$$Base            0x200000a8           --   Gb  - Linker created -
+CSTACK$$Limit           0x200004a8           --   Gb  - Linker created -
+CurrentBackColor        0x20000066     0x2  Data  Lc  stm32f429i_discovery_lcd.o [1]
+CurrentFrameBuffer      0x2000006c     0x4  Data  Lc  stm32f429i_discovery_lcd.o [1]
+CurrentLayer            0x20000070     0x4  Data  Lc  stm32f429i_discovery_lcd.o [1]
+CurrentTextColor        0x20000064     0x2  Data  Lc  stm32f429i_discovery_lcd.o [1]
 DMA2D_DeInit            0x08002399    0x1a  Code  Gb  stm32f4xx_dma2d.o [1]
 DMA2D_GetFlagStatus     0x08002459    0x10  Code  Gb  stm32f4xx_dma2d.o [1]
 DMA2D_Init              0x080023b3    0x9a  Code  Gb  stm32f4xx_dma2d.o [1]
 DMA2D_StartTransfer     0x0800244d     0xc  Code  Gb  stm32f4xx_dma2d.o [1]
-DebugMon_Handler        0x08003805     0x2  Code  Gb  stm32f4xx_it.o [1]
-Delay                   0x080032f9    0x12  Code  Gb  EECE 437 S14 Lab #1 Template.o [1]
-Demo_GyroReadAngRate    0x08003235    0xc0  Code  Lc  EECE 437 S14 Lab #1 Template.o [1]
+DebugMon_Handler        0x080037ed     0x2  Code  Gb  stm32f4xx_it.o [1]
+Delay                   0x080032ed    0x12  Code  Gb  EECE 437 S14 Lab #1 Template.o [1]
+Demo_GyroReadAngRate    0x08003229    0xc0  Code  Lc  EECE 437 S14 Lab #1 Template.o [1]
 FMC_GetFlagStatus       0x08002667    0x2e  Code  Gb  stm32f4xx_fmc.o [1]
 FMC_SDRAMCmdConfig      0x08002641    0x1a  Code  Gb  stm32f4xx_fmc.o [1]
 FMC_SDRAMInit           0x08002591    0xb0  Code  Gb  stm32f4xx_fmc.o [1]
 FMC_SetRefreshCount     0x0800265b     0xc  Code  Gb  stm32f4xx_fmc.o [1]
-Font16x24               0x2000005c     0x8  Data  Gb  stm32f429i_discovery_lcd.o [1]
+Font16x24               0x20000074     0x8  Data  Gb  stm32f429i_discovery_lcd.o [1]
 GPIO_Init               0x08001cdd    0x70  Code  Gb  stm32f4xx_gpio.o [1]
 GPIO_PinAFConfig        0x08001d5f    0x24  Code  Gb  stm32f4xx_gpio.o [1]
 GPIO_ResetBits          0x08001d51     0x4  Code  Gb  stm32f4xx_gpio.o [1]
 GPIO_SetBits            0x08001d4d     0x4  Code  Gb  stm32f4xx_gpio.o [1]
 GPIO_WriteBit           0x08001d55     0xa  Code  Gb  stm32f4xx_gpio.o [1]
-Gyro                    0x20000004     0xc  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
-HardFault_Handler       0x080037fb     0x2  Code  Gb  stm32f4xx_it.o [1]
+Gyro                    0x20000000     0xc  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+HardFault_Handler       0x080037e3     0x2  Code  Gb  stm32f4xx_it.o [1]
 I2C_AcknowledgeConfig   0x08002de1    0x14  Code  Gb  stm32f4xx_i2c.o [1]
 I2C_Cmd                 0x08002d95    0x14  Code  Gb  stm32f4xx_i2c.o [1]
 I2C_DeInit              0x08002c7d    0x52  Code  Gb  stm32f4xx_i2c.o [1]
@@ -393,26 +393,26 @@ IOE_ReadID              0x080027db    0x16  Code  Gb  stm32f429i_discovery_ioe.o
 IOE_Reset               0x080027bf    0x14  Code  Gb  stm32f429i_discovery_ioe.o [1]
 IOE_TP_Config           0x08002815    0x70  Code  Gb  stm32f429i_discovery_ioe.o [1]
 IOE_TP_GetState         0x080026f5    0xa2  Code  Gb  stm32f429i_discovery_ioe.o [1]
-IOE_TimeOut             0x20000074     0x4  Data  Gb  stm32f429i_discovery_ioe.o [1]
+IOE_TimeOut             0x2000008c     0x4  Data  Gb  stm32f429i_discovery_ioe.o [1]
 IOE_TimeoutUserCallback
                         0x08002bcb    0x40  Code  Gb  stm32f429i_discovery_ioe.o [1]
-L3GD20Timeout           0x20000078     0x4  Data  Gb  stm32f429i_discovery_l3gd20.o [1]
-L3GD20_FilterCmd        0x08003423    0x1e  Code  Gb  stm32f429i_discovery_l3gd20.o [1]
-L3GD20_FilterConfig     0x080033ef    0x28  Code  Gb  stm32f429i_discovery_l3gd20.o [1]
-L3GD20_Init             0x08003399    0x42  Code  Gb  stm32f429i_discovery_l3gd20.o [1]
-L3GD20_LowLevel_Init    0x080034bd   0x112  Code  Lc  stm32f429i_discovery_l3gd20.o [1]
-L3GD20_Read             0x08003477    0x30  Code  Gb  stm32f429i_discovery_l3gd20.o [1]
-L3GD20_SendByte         0x080035d9    0x52  Code  Lc  stm32f429i_discovery_l3gd20.o [1]
+L3GD20Timeout           0x20000090     0x4  Data  Gb  stm32f429i_discovery_l3gd20.o [1]
+L3GD20_FilterCmd        0x0800340b    0x1e  Code  Gb  stm32f429i_discovery_l3gd20.o [1]
+L3GD20_FilterConfig     0x080033d7    0x28  Code  Gb  stm32f429i_discovery_l3gd20.o [1]
+L3GD20_Init             0x08003381    0x42  Code  Gb  stm32f429i_discovery_l3gd20.o [1]
+L3GD20_LowLevel_Init    0x080034a5   0x112  Code  Lc  stm32f429i_discovery_l3gd20.o [1]
+L3GD20_Read             0x0800345f    0x30  Code  Gb  stm32f429i_discovery_l3gd20.o [1]
+L3GD20_SendByte         0x080035c1    0x52  Code  Lc  stm32f429i_discovery_l3gd20.o [1]
 L3GD20_TIMEOUT_UserCallback
-                        0x080032f5     0x4  Code  Gb  EECE 437 S14 Lab #1 Template.o [1]
-L3GD20_Write            0x08003449    0x2e  Code  Gb  stm32f429i_discovery_l3gd20.o [1]
+                        0x080032e9     0x4  Code  Gb  EECE 437 S14 Lab #1 Template.o [1]
+L3GD20_Write            0x08003431    0x2e  Code  Gb  stm32f429i_discovery_l3gd20.o [1]
 LCD_AF_GPIOConfig       0x08001b9b   0x108  Code  Lc  stm32f429i_discovery_lcd.o [1]
 LCD_ChipSelect          0x080014c5    0x16  Code  Gb  stm32f429i_discovery_lcd.o [1]
 LCD_Clear               0x0800150d    0x16  Code  Gb  stm32f429i_discovery_lcd.o [1]
-LCD_ClearSection        0x080030e7    0x26  Code  Gb  EECE 437 S14 Lab #1 Template.o [1]
+LCD_ClearSection        0x080030d7    0x26  Code  Gb  EECE 437 S14 Lab #1 Template.o [1]
 LCD_CtrlLinesConfig     0x08001a8f    0x42  Code  Gb  stm32f429i_discovery_lcd.o [1]
 LCD_CtrlLinesWrite      0x08001ad5     0x4  Code  Gb  stm32f429i_discovery_lcd.o [1]
-LCD_Currentfonts        0x20000050     0x4  Data  Lc  stm32f429i_discovery_lcd.o [1]
+LCD_Currentfonts        0x20000068     0x4  Data  Lc  stm32f429i_discovery_lcd.o [1]
 LCD_DisplayChar         0x080015a1    0x1c  Code  Gb  stm32f429i_discovery_lcd.o [1]
 LCD_DisplayStringLine   0x080015bd    0x36  Code  Gb  stm32f429i_discovery_lcd.o [1]
 LCD_DrawChar            0x08001529    0x78  Code  Gb  stm32f429i_discovery_lcd.o [1]
@@ -436,9 +436,9 @@ LTDC_Init               0x08002215    0x96  Code  Gb  stm32f4xx_ltdc.o [1]
 LTDC_LayerCmd           0x0800236f    0x12  Code  Gb  stm32f4xx_ltdc.o [1]
 LTDC_LayerInit          0x080022db    0x94  Code  Gb  stm32f4xx_ltdc.o [1]
 LTDC_ReloadConfig       0x080022d5     0x6  Code  Gb  stm32f4xx_ltdc.o [1]
-MemManage_Handler       0x080037fd     0x2  Code  Gb  stm32f4xx_it.o [1]
-NMI_Handler             0x080037f9     0x2  Code  Gb  stm32f4xx_it.o [1]
-PendSV_Handler          0x08003807     0x2  Code  Gb  stm32f4xx_it.o [1]
+MemManage_Handler       0x080037e5     0x2  Code  Gb  stm32f4xx_it.o [1]
+NMI_Handler             0x080037e1     0x2  Code  Gb  stm32f4xx_it.o [1]
+PendSV_Handler          0x080037ef     0x2  Code  Gb  stm32f4xx_it.o [1]
 RCC_AHB1PeriphClockCmd  0x08001e57    0x12  Code  Gb  stm32f4xx_rcc.o [1]
 RCC_AHB1PeriphResetCmd  0x08001e9f    0x12  Code  Gb  stm32f4xx_rcc.o [1]
 RCC_AHB3PeriphClockCmd  0x08001e69    0x12  Code  Gb  stm32f4xx_rcc.o [1]
@@ -446,14 +446,14 @@ RCC_APB1PeriphClockCmd  0x08001e7b    0x12  Code  Gb  stm32f4xx_rcc.o [1]
 RCC_APB1PeriphResetCmd  0x08001eb1    0x12  Code  Gb  stm32f4xx_rcc.o [1]
 RCC_APB2PeriphClockCmd  0x08001e8d    0x12  Code  Gb  stm32f4xx_rcc.o [1]
 RCC_APB2PeriphResetCmd  0x08001ec3    0x12  Code  Gb  stm32f4xx_rcc.o [1]
-RCC_Clocks              0x20000028    0x10  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+RCC_Clocks              0x20000024    0x10  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
 RCC_GetClocksFreq       0x08001dcd    0x80  Code  Gb  stm32f4xx_rcc.o [1]
 RCC_GetFlagStatus       0x08001ed5    0x22  Code  Gb  stm32f4xx_rcc.o [1]
 RCC_LTDCCLKDivConfig    0x08001e4d     0xa  Code  Gb  stm32f4xx_rcc.o [1]
 RCC_PLLSAICmd           0x08001dc1     0x6  Code  Gb  stm32f4xx_rcc.o [1]
 RCC_PLLSAIConfig        0x08001db1     0x8  Code  Gb  stm32f4xx_rcc.o [1]
-Region$$Table$$Base     0x08003774           --   Gb  - Linker created -
-Region$$Table$$Limit    0x08003798           --   Gb  - Linker created -
+Region$$Table$$Base     0x0800375c           --   Gb  - Linker created -
+Region$$Table$$Limit    0x08003780           --   Gb  - Linker created -
 SDRAM_GPIOConfig        0x08001f9d   0x160  Code  Gb  stm32f429i_discovery_sdram.o [1]
 SDRAM_Init              0x08001f35    0x68  Code  Gb  stm32f429i_discovery_sdram.o [1]
 SDRAM_InitSequence      0x0800211b    0x9e  Code  Gb  stm32f429i_discovery_sdram.o [1]
@@ -463,37 +463,42 @@ SPI_I2S_GetFlagStatus   0x08002581     0xe  Code  Gb  stm32f4xx_spi.o [1]
 SPI_I2S_ReceiveData     0x08002579     0x4  Code  Gb  stm32f4xx_spi.o [1]
 SPI_I2S_SendData        0x0800257d     0x4  Code  Gb  stm32f4xx_spi.o [1]
 SPI_Init                0x08002515    0x38  Code  Gb  stm32f4xx_spi.o [1]
-SVC_Handler             0x08003803     0x2  Code  Gb  stm32f4xx_it.o [1]
-SysTick_Handler         0x08003809     0x4  Code  Gb  stm32f4xx_it.o [1]
-SystemInit              0x08003641    0xea  Code  Gb  system_stm32f4xx.o [1]
-TP_Config               0x0800310d   0x116  Code  Lc  EECE 437 S14 Lab #1 Template.o [1]
-TP_State                0x2000007c     0x8  Data  Gb  stm32f429i_discovery_ioe.o [1]
-TimingDelay             0x2000008c     0x4  Data  Lc  EECE 437 S14 Lab #1 Template.o [1]
-TimingDelay_Decrement   0x0800330b     0xe  Code  Gb  EECE 437 S14 Lab #1 Template.o [1]
-UsageFault_Handler      0x08003801     0x2  Code  Gb  stm32f4xx_it.o [1]
-X_BiasError             0x20000038     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
-Xval                    0x20000000     0x1  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
-Y_BiasError             0x2000003c     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
-Yval                    0x20000001     0x1  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
-Z_BiasError             0x20000040     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
-__cmain                 0x080037b5          Code  Gb  cmain.o [5]
-__exit                  0x080037e5    0x14  Code  Gb  exit.o [6]
+SVC_Handler             0x080037eb     0x2  Code  Gb  stm32f4xx_it.o [1]
+SysTick_Handler         0x080037f1     0x4  Code  Gb  stm32f4xx_it.o [1]
+SystemInit              0x08003629    0xea  Code  Gb  system_stm32f4xx.o [1]
+TP_Config               0x080030fd   0x116  Code  Lc  EECE 437 S14 Lab #1 Template.o [1]
+TP_State                0x20000094     0x8  Data  Gb  stm32f429i_discovery_ioe.o [1]
+TimingDelay             0x200000a4     0x4  Data  Lc  EECE 437 S14 Lab #1 Template.o [1]
+TimingDelay_Decrement   0x080032ff     0xe  Code  Gb  EECE 437 S14 Lab #1 Template.o [1]
+UsageFault_Handler      0x080037e9     0x2  Code  Gb  stm32f4xx_it.o [1]
+X_BiasError             0x20000034     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+Y_BiasError             0x20000038     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+Z_BiasError             0x2000003c     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+__cmain                 0x0800379d          Code  Gb  cmain.o [5]
+__exit                  0x080037cd    0x14  Code  Gb  exit.o [6]
 __iar_copy_init3        0x08001d83    0x2e  Code  Gb  copy_init3.o [5]
-__iar_data_init3        0x0800374d    0x28  Code  Gb  data_init.o [5]
-__iar_init_vfp          0x08003799          Code  Gb  fpinit_M.o [4]
-__iar_program_start     0x0800381d          Code  Gb  cstartup_M.o [5]
+__iar_data_init3        0x08003735    0x28  Code  Gb  data_init.o [5]
+__iar_init_vfp          0x08003781          Code  Gb  fpinit_M.o [4]
+__iar_program_start     0x08003805          Code  Gb  cstartup_M.o [5]
 __iar_zero_init3        0x080021f3    0x22  Code  Gb  zero_init3.o [5]
-__low_level_init        0x080037cf     0x4  Code  Gb  low_level_init.o [3]
+__low_level_init        0x080037b7     0x4  Code  Gb  low_level_init.o [3]
 __vector_table          0x08000000          Data  Gb  startup_stm32f429_439xx.o [1]
-_call_main              0x080037c1          Code  Gb  cmain.o [5]
-_exit                   0x080037d9          Code  Gb  cexit.o [5]
-_main                   0x080037cb          Code  Gb  cmain.o [5]
+_call_main              0x080037a9          Code  Gb  cmain.o [5]
+_exit                   0x080037c1          Code  Gb  cexit.o [5]
+_main                   0x080037b3          Code  Gb  cmain.o [5]
+a1_ground               0x20000040     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+a1_y_position           0x20000048     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+a1_y_signal             0x20000044     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+a2_ground               0x2000004c     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+a2_y_position           0x20000054     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+a2_y_signal             0x20000050     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+amplification           0x20000058     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
 delay                   0x08002c31    0x20  Code  Lc  stm32f429i_discovery_ioe.o [1]
 delay                   0x08001cc1    0x1c  Code  Lc  stm32f429i_discovery_lcd.o [1]
-exit                    0x080037d3     0x4  Code  Gb  exit.o [3]
-main                    0x08002e5d   0x25c  Code  Gb  EECE 437 S14 Lab #1 Template.o [1]
-x_index                 0x20000044     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
-y_index                 0x20000048     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+exit                    0x080037bb     0x4  Code  Gb  exit.o [3]
+main                    0x08002e5d   0x264  Code  Gb  EECE 437 S14 Lab #1 Template.o [1]
+sample_rate             0x2000005c     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
+time                    0x20000060     0x4  Data  Gb  EECE 437 S14 Lab #1 Template.o [1]
 
 
 [1] = C:\Users\ProtoNova\programming\eece437\STM32F429I-Discovery_FW_V1.0.1\Projects\Peripheral_Examples\_EECE437_Base\EWARM\Touch_Panel\Obj
@@ -503,9 +508,9 @@ y_index                 0x20000048     0x4  Data  Gb  EECE 437 S14 Lab #1 Templa
 [5] = rt7M_tl.a
 [6] = shb_l.a
 
-  10 144 bytes of readonly  code memory
-   4 720 bytes of readonly  data memory
-   1 168 bytes of readwrite data memory
+  10 120 bytes of readonly  code memory
+   4 744 bytes of readonly  data memory
+   1 192 bytes of readwrite data memory
 
 Errors: none
 Warnings: none
