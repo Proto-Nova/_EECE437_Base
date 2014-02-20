@@ -71,7 +71,7 @@ int a2_y_position  = 0;         /*!< Draw position for Y read out            >*/
 
 int amplification  = 1;         /*!< Aplification on to signal (sensitivity) >*/
 int sample_rate    = 1;         /*!< Sample Rate effects delay in loop       >*/
-int time           = 0;         /*!< Moves x pos on draw screen              >*/
+int time           = 0;         /*!< Moves draw point per systick            >*/
 char gyro_val_buffer[15];       /*!< For i to a conversion of X/YVals        >*/
 
 /* Private function prototypes -----------------------------------------------*/
@@ -148,20 +148,20 @@ int main(void)
           } else if ((TP_State->TouchDetected) && (TP_State->X >= B2_XMIN) && (TP_State->X < B2_XMAX)) {            
                  LCD_SetFont(&Font16x24);
                  LCD_SetTextColor(LCD_COLOR_BLUE); 
-                 amplification = (amplification == 1 ? 2 : 1);      /*!< Toggles Amplification >*/
+                 amplification = (amplification == 1 ? 2 : 1);  /*!< Toggles Amplification >*/
 
           /* Green Button - Changes sampling rate (delay at end of loop) */       
           } else if ((TP_State->TouchDetected) && (TP_State->X >= B3_XMIN) && (TP_State->X < B3_XMAX)) {
                  LCD_SetFont(&Font16x24);
                  LCD_SetTextColor(LCD_COLOR_GREEN); 
-                 sample_rate = (sample_rate == 1 ? .5 : 1);         /*< Toggles Sample rate >*/
+                 sample_rate = (sample_rate == 1 ? .5 : 1);     /*< Toggles Sample rate >*/
           }
       }
 
-      time++;     
-      if (time >= 238) {
-          time = 2;          
-          LCD_ClearSection(A1_ZONE);
+      time++;                               /*!< Move draw point right one pixel >*/
+      if (time >= 238) {                    /*!< LCD is 238 pixels across.       >*/
+          time = 2;                         /*!< Reset draw point to pixel 2     >*/
+          LCD_ClearSection(A1_ZONE);        /*!< Clear both sections             >*/
           LCD_ClearSection(A2_ZONE);
       }
 
@@ -175,12 +175,12 @@ int main(void)
       /* @float(120)    Emperical testing showed that highest avg val produced from wrist is 120 */
       /* We determined that there were 37 pixels of draw space above and below the ground level  */
       /* so the signal should be a percentage of that                                            */
-      a1_y_signal   = -37*(Buffer[0]/(float)(120));          /*!< NOTE: float MUST be used in math operation */ 
-      a1_y_position = amplification*a1_y_signal + a1_ground; /*   here or result of multiplication will      */
-                                                             /*   almost always either be 1 or 0             *>/
+      a1_y_signal   = -37*(Buffer[0]/(float)(120));             /*!< NOTE: float MUST be used in math operation */ 
+      a1_y_position = amplification*a1_y_signal + a1_ground;    /*   here or result of multiplication will      */
+                                                                /*   almost always either be 1 or 0             *>/
       /* Y value position */
       a2_y_signal   = -37*(Buffer[1]/(float)(120));
-      a2_y_position = amplification*a2_y_signal + a2_ground;
+      a2_y_position = amplification*a2_y_signal + a2_ground;    /*!< If needed, amplify sig before drawing *>/
       
       if (a1_y_position < A1_YMIN) { a1_y_position = A1_YMIN; } /*!< Celing value for X Pos >*/
       if (a1_y_position > A1_YMAX) { a1_y_position = A1_YMAX; } /*!< Floor value for X Pos  >*/
