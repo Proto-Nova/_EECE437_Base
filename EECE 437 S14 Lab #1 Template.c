@@ -61,18 +61,18 @@ static __IO uint32_t TimingDelay;
 RCC_ClocksTypeDef RCC_Clocks;
 
 /* Private variables ---------------------------------------------------------*/
-int a1_ground      = 0;         // Zero point for X read out
-int a1_y_signal    = 0;
-int a1_y_position  = 0;
+int a1_ground      = 0;         /*!< Zero point for X read out               >*/
+int a1_y_signal    = 0;         /*!< The numerica value captured from gyro   >*/
+int a1_y_position  = 0;         /*!< Draw position for X read out            >*/
 
-int a2_ground      = 0;
-int a2_y_signal    = 0;
-int a2_y_position  = 0;
+int a2_ground      = 0;         /*!< Zero point for Y read out               >*/
+int a2_y_signal    = 0;         /*!< The numerica value captured from gyro   >*/
+int a2_y_position  = 0;         /*!< Draw position for Y read out            >*/
 
-int amplification  = 1;
-int sample_rate    = 1;
-int time           = 0;
-char gyro_val_buffer[15];       // For i to a conversion of X/YVals
+int amplification  = 1;         /*!< Aplification on to signal (sensitivity) >*/
+int sample_rate    = 1;         /*!< Sample Rate effects delay in loop       >*/
+int time           = 0;         /*!< Moves x pos on draw screen              >*/
+char gyro_val_buffer[15];       /*!< For i to a conversion of X/YVals        >*/
 
 /* Private function prototypes -----------------------------------------------*/
 static void TP_Config(void);
@@ -136,7 +136,7 @@ int main(void)
       TP_State = IOE_TP_GetState();
       
       if((TP_State->TouchDetected) && ((TP_State->Y < B1_YMAX) && (TP_State->Y >= B1_YMIN))) {
-        /* Red Button */  
+        /* Red Button - Forces screen clear and resents draw pos */  
         if((TP_State->X >= B1_XMIN) && (TP_State->X < B1_XMAX)) {   
                  LCD_SetFont(&Font16x24);
                  LCD_SetTextColor(LCD_COLOR_RED); 
@@ -144,17 +144,17 @@ int main(void)
                  LCD_ClearSection(A1_ZONE);
                  LCD_ClearSection(A2_ZONE);
 
-          /* Blue Button */       
+          /* Blue Button - Changes sensitivity by doubling values in signal */       
           } else if ((TP_State->TouchDetected) && (TP_State->X >= B2_XMIN) && (TP_State->X < B2_XMAX)) {            
                  LCD_SetFont(&Font16x24);
                  LCD_SetTextColor(LCD_COLOR_BLUE); 
-                 amplification = (amplification == 1 ? 2 : 1);
+                 amplification = (amplification == 1 ? 2 : 1);      /*!< Toggles Amplification >*/
 
-          /* Green Button */       
+          /* Green Button - Changes sampling rate (delay at end of loop) */       
           } else if ((TP_State->TouchDetected) && (TP_State->X >= B3_XMIN) && (TP_State->X < B3_XMAX)) {
                  LCD_SetFont(&Font16x24);
                  LCD_SetTextColor(LCD_COLOR_GREEN); 
-                 sample_rate = (sample_rate == 1 ? .5 : 1);
+                 sample_rate = (sample_rate == 1 ? .5 : 1);         /*< Toggles Sample rate >*/
           }
       }
 
@@ -172,83 +172,28 @@ int main(void)
       Buffer[1] = (int8_t)Buffer[1] - (int8_t)Gyro[1];
       
       /* X value position */
-      a1_y_signal   = -37*(Buffer[0]/(float)(120));
-      a1_y_position = 2*a1_y_signal + a1_ground;
-      
+      /* @float(120)    Emperical testing showed that highest avg val produced from wrist is 120 */
+      /* We determined that there were 37 pixels of draw space above and below the ground level  */
+      /* so the signal should be a percentage of that                                            */
+      a1_y_signal   = -37*(Buffer[0]/(float)(120));          /*!< NOTE: float MUST be used in math operation */ 
+      a1_y_position = amplification*a1_y_signal + a1_ground; /*   here or result of multiplication will      */
+                                                             /*   almost always either be 1 or 0             *>/
       /* Y value position */
       a2_y_signal   = -37*(Buffer[1]/(float)(120));
-      a2_y_position = 2*a2_y_signal + a2_ground;
+      a2_y_position = amplification*a2_y_signal + a2_ground;
       
-      if (a1_y_position < A1_YMIN) { a1_y_position = A1_YMIN; }
-      if (a1_y_position > A1_YMAX) { a1_y_position = A1_YMAX; }
-      if (a2_y_position < A2_YMIN) { a2_y_position = A2_YMIN; }
-      if (a2_y_position > A2_YMAX) { a2_y_position = A2_YMAX; }
+      if (a1_y_position < A1_YMIN) { a1_y_position = A1_YMIN; } /*!< Celing value for X Pos >*/
+      if (a1_y_position > A1_YMAX) { a1_y_position = A1_YMAX; } /*!< Floor value for X Pos  >*/
+      if (a2_y_position < A2_YMIN) { a2_y_position = A2_YMIN; } /*!< Celing value for y Pos >*/
+      if (a2_y_position > A2_YMAX) { a2_y_position = A2_YMAX; } /*!< Floor value for Y Pos  >*/
       LCD_SetTextColor(LCD_COLOR_BLACK);
       LCD_DrawFullCircle(time, a1_y_position, 1);
       LCD_DrawFullCircle(time, a2_y_position, 1);
       
-      //sprintf(gyro_val_buffer, "XVAL:%d YVAL:%d", Buffer[0], Buffer[1]);
-
-      //LCD_ClearSection(A1_YMIN, A1_YMAX);
-      //LCD_SetTextColor(LCD_COLOR_BLACK);
-      //LCD_DisplayStringLine(LINE(3), (uint8_t*)gyro_val_buffer);
-      
-// Demo code - draws colored circles in first display area - delete for your solution
-      
-//      if ( Xval>Yval)
-//      {
-//        if ((int16_t)Buffer[0] > 40)
-//        {
-//          /* Clear the LCD */
-//          LCD_ClearSection(A1_YMIN, A1_YMAX);
-//          LCD_SetTextColor(LCD_COLOR_BLACK);
-//          //LCD_DrawFullCircle(120, (A1_YMIN + 6), 5);
-//          LCD_DisplayStringLine(LINE(3), (uint8_t*)gyro_val_buffer);
-//
-//        }
-//        else if ((int16_t)Buffer[0] < -40)
-//        {
-//          /* Clear the LCD */
-//          LCD_ClearSection(A1_YMIN, A1_YMAX);
-//          LCD_SetTextColor(LCD_COLOR_BLACK);
-//          //LCD_DrawFullCircle(120, (A1_YMAX - 6), 5);
-//          LCD_DisplayStringLine(LINE(3), (uint8_t*)gyro_val_buffer);
-//
-//        }
-//      }
-//      else
-//      {
-//        if ((int16_t)Buffer[1] < -40)
-//        {
-//          /* Clear the LCD */
-//          LCD_ClearSection(A1_YMIN, A1_YMAX);
-//          LCD_SetTextColor(LCD_COLOR_BLACK);
-//          //LCD_DrawFullCircle(10, (A1_YMIN + 38), 5);
-//          LCD_DisplayStringLine(LINE(3), (uint8_t*)gyro_val_buffer);
-//
-//        }
-//        else if ((int16_t)Buffer[1] > 40)
-//        {      
-
-
-//        } 
-//      } 
-// End Demo code to be deleted
-      
-         Delay(sample_rate);
+      Delay(sample_rate);
     }
 }
 
-
-// ................................................................
-
-
-
-
-
-
-
-//----------------------------------------------------------------------------
 // Supplied Functions - Do not change ......
 
 void LCD_ClearSection(uint16_t YStart, uint16_t YEnd)
