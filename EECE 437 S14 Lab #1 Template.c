@@ -180,7 +180,7 @@ int main(void)
                                                                 /*   almost always either be 1 or 0             *>/
       /* Y value position */
       a2_y_signal   = -37*(Buffer[1]/(float)(120));
-      a2_y_position = amplification*a2_y_signal + a2_ground;    /*!< If needed, amplify sig before drawing *>/
+      a2_y_position = amplification*a2_y_signal + a2_ground;    /*!< If needed, amplify sig before drawing >*/
       
       if (a1_y_position < A1_YMIN) { a1_y_position = A1_YMIN; } /*!< Celing value for X Pos >*/
       if (a1_y_position > A1_YMAX) { a1_y_position = A1_YMAX; } /*!< Floor value for X Pos  >*/
